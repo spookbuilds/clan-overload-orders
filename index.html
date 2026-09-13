@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Koruxa clan exchange for overload potions and Nexus runes.">
+  <title>Koruxa Exchange</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="hero__glow"></div>
+    <div class="container hero__content">
+      <p class="eyebrow">CLAN TRADE</p>
+      <h1>Clan Potion & Rune Trade</h1>
+      <p class="hero__subtitle">
+        Swap materials for Overload Potions and Nexus Runes, with better value on larger potion orders.
+      </p>
+      <div class="hero__badges" aria-label="Exchange information">
+        <span>🧪 Bulk Overload discounts</span>
+        <span>🔮 Multiple swap options</span>
+        <span>💬 Orders sent to Discord</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container page-layout">
+    <section class="market" aria-labelledby="market-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">AVAILABLE NOW</p>
+          <h2 id="market-title">Choose what you want</h2>
+        </div>
+        <label class="search">
+          <span class="sr-only">Search exchange items</span>
+          <input id="item-search" type="search" placeholder="Search items..." autocomplete="off">
+        </label>
+      </div>
+
+      <div class="bulk-note">
+        <strong>💡 Bigger Overload orders get much better value.</strong>
+        The 150-potion bundle gives 50% extra potions for the listed materials, while the 1,500-potion bundle gives double the potion value compared with small orders.
+      </div>
+
+      <div id="menu-status" class="notice notice--loading">Loading the exchange...</div>
+      <div id="exchange-groups" class="exchange-groups" aria-live="polite"></div>
+    </section>
+
+    <aside class="basket-panel" aria-labelledby="basket-title">
+      <div class="basket-card">
+        <div class="basket-card__heading">
+          <div>
+            <p class="eyebrow">YOUR SWAP</p>
+            <h2 id="basket-title">Basket</h2>
+          </div>
+          <span id="basket-count" class="basket-count">0</span>
+        </div>
+
+        <div id="empty-basket" class="empty-state">
+          <div class="empty-state__icon">🧪</div>
+          <p>Your basket is empty.</p>
+          <small>Choose an item and a swap option.</small>
+        </div>
+
+        <div id="basket-items" class="basket-items"></div>
+
+        <div id="receive-summary" class="receive-summary" hidden>
+          <p class="receive-summary__label">You receive</p>
+          <div id="receive-summary-lines" class="receive-summary__lines"></div>
+        </div>
+
+        <form id="checkout-form" class="checkout-form" novalidate>
+          <label for="player-name">
+            Game / Discord name <span class="required">*</span>
+          </label>
+          <input
+            id="player-name"
+            name="playerName"
+            type="text"
+            minlength="2"
+            maxlength="40"
+            placeholder="Your in-game or Discord name"
+            autocomplete="off"
+            required
+          >
+
+          <label for="order-notes">Swap notes <span class="optional">(optional)</span></label>
+          <textarea
+            id="order-notes"
+            name="notes"
+            rows="3"
+            maxlength="300"
+            placeholder="Anything to discuss about this trade?"
+          ></textarea>
+
+          <div class="honeypot" aria-hidden="true">
+            <label for="website">Website</label>
+            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+
+          <button id="submit-order" class="primary-button" type="submit" disabled>
+            Submit swap request
+          </button>
+          <p id="form-message" class="form-message" aria-live="polite"></p>
+        </form>
+
+        <p class="privacy-note">
+          This form only asks for the Koruxa/Discord name needed to arrange the trade. No email address,
+          real name, phone number, account or tracking cookies are required. Swap details are delivered
+          to a private Discord channel through the Cloudflare Worker.
+        </p>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>🔮 Koruxa Clan Exchange</p>
+      <small>Final trades can be arranged in Discord after the request is submitted.</small>
+    </div>
+  </footer>
+
+  <template id="exchange-card-template">
+    <article class="exchange-card">
+      <div class="exchange-card__header">
+        <div class="item-icon" aria-hidden="true"></div>
+        <div class="exchange-card__title-wrap">
+          <div class="card-kicker"></div>
+          <h3 class="item-name"></h3>
+          <p class="item-description"></p>
+        </div>
+        <span class="value-badge"></span>
+      </div>
+
+      <div class="receive-box">
+        <span>You receive</span>
+        <strong class="receive-amount"></strong>
+      </div>
+
+      <label class="trade-label">
+        Swap option
+        <select class="trade-select"></select>
+      </label>
+
+      <div class="trade-preview"></div>
+      <div class="special-note" hidden></div>
+
+      <div class="exchange-card__controls">
+        <label class="quantity-control">
+          <span class="quantity-label">Qty</span>
+          <input class="quantity-input" type="number" min="1" value="1" inputmode="numeric">
+        </label>
+        <div class="calculated-receive"></div>
+        <button type="button" class="add-button">Add</button>
+      </div>
+    </article>
+  </template>
+
+  <script src="./script.js" defer></script>
+</body>
+</html>
