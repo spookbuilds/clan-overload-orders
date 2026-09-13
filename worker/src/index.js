@@ -150,7 +150,7 @@ const OVERLOAD_ITEMS = [
         name: "Spirit Extracts only — special bulk rate",
         highlight: "🔥 Special bulk rate: only 1 Spirit Extract per Overload Potion — one third of the small-order extract rate. Even larger orders can discuss a further discount.",
         give: [
-          { name: "Spirit Extracts", amount: 1500 }
+          { name: "Spirit Extracts", amount: 2250 }
         ]
       },
       {
